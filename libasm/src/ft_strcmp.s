@@ -1,16 +1,19 @@
 global ft_strcmp
 
+
 ft_strcmp:
+	xor rcx, rcx
+loop:
 	mov al, byte [rdi + rcx]
-	mov bl, byte [rsi + rcx]
-	cmp al, bl
+	mov dl, byte [rsi + rcx]
+	cmp al, dl
 	jne exit
 	cmp al, byte 0
 	je exit
 	inc rcx
-	jmp ft_strcmp
+	jmp loop
 exit:
 	movzx rax, al
-	movzx rbx, bl
-	sub rax, rbx
+	movzx rdx, dl
+	sub rax, rdx
 	ret

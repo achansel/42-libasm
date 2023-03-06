@@ -5,8 +5,8 @@ ft_strcpy:
 cpy:
 	cmp [rsi + rax], byte 0
 	je exit
-	mov bl, byte [rsi + rax]
-	mov [rdi + rax], bl
+	mov dl, byte [rsi + rax]
+	mov [rdi + rax], dl
 	inc rax
 	jmp cpy
 exit:
