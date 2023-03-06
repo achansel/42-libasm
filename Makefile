@@ -6,15 +6,13 @@
 #    By: achansel <achansel@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/21 06:12:22 by achansel          #+#    #+#              #
-#    Updated: 2023/03/06 13:59:06 by achansel         ###   ########.fr        #
+#    Updated: 2023/03/06 18:37:53 by achansel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Toolchain, ld because lld can not output i386 elf
 AS			= nasm
 CC			= clang
 
-# Set default arch to i386, override is allowed with env variable
 NAME		= libasm.a
 TNAME		= checker
 
