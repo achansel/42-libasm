@@ -15,10 +15,10 @@ In order to prove that the functions work, we also have to write basic [unit tes
 
 ### Bonus
 - [ft_atoi_base](libasm/src/ft_atoi_base_bonus.s) - *int ft_atoi_base(char \*str, char \*base);*
-- [ft_list_push_front](libasm/src/ft_list_push_front_bonus.s) - *void ft_list_push_front(t_list \*\*head, void \*data);*
-- [ft_list_size](libasm/src/ft_list_size_bonus.s) - *int ft_list_size(t_list \*head);*
-- [ft_list_sort](libasm/src/ft_list_sort_bonus.s) - *void ft_list_sort(t_list \*\*head, int (\*cmp)());*
-- [ft_list_remove_if](libasm/src/ft_list_remove_if_bonus.s) - *void ft_list_remove_if(t_list \*\*head, void \*ref, int (\*cmp)(void \*, void \*), void (\*free_fn)(void \*));*
+- [ft_list_push_front](libasm/src/ft_list_push_front_bonus.s) - *void ft_list_push_front(t_list \*\*, void \*data);*
+- [ft_list_size](libasm/src/ft_list_size_bonus.s) - *int ft_list_size(t_list \*);*
+- [ft_list_sort](libasm/src/ft_list_sort_bonus.s) - *void ft_list_sort(t_list \*\*, int (\*cmp)());*
+- [ft_list_remove_if](libasm/src/ft_list_remove_if_bonus.s) - *void ft_list_remove_if(t_list \*\*, void \*data_ref, int (\*cmp)(void \*,void \*), void (\*free_fn)(void \*));*
 
 The `t_list` struct can be found in the [include file](libasm/include/libasm.h) of the library.
 
