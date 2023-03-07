@@ -10,8 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC			= clang
 NAME		= checker
+ifdef BONUS
+	NAME 	= checker_bonus
+endif
 
 CFLAGS		= -Wno-format -Ilibasm/include
 
@@ -24,12 +26,12 @@ endif
 OBJS 		:=	$(addsuffix .o, $(basename $(SRCS)))
 
 # Rules
-all:		$(NAME)
+all:		libasm  $(NAME)
 
 bonus:
 	@make BONUS=1
 
-libasm/lib/libasm.a:
+libasm:
 	@make -C libasm/
 
 $(NAME): libasm/lib/libasm.a $(OBJS) 
@@ -38,12 +40,18 @@ $(NAME): libasm/lib/libasm.a $(OBJS)
 re:	fclean all
 
 clean:
-	rm -f $(OBJS)
+ifndef BONUS
+	@make BONUS=1 clean
 	make -C libasm/ clean
+endif
+	rm -f $(OBJS)
 
 
 fclean: clean
-	rm -f $(NAME)
+ifndef BONUS
+	@make BONUS=1 fclean
 	make -C libasm/ fclean
+endif
+	rm -f $(NAME)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libasm

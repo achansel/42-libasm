@@ -11,13 +11,10 @@
 # **************************************************************************** #
 
 AS			= nasm
-CC			= clang
 
 NAME		= lib/libasm.a
 
-# Flags
-# TODO: FIX ON MACOS
-ASFLAGS 	= -felf64
+ASFLAGS 	= -fmacho64
 
 # Sources & Objects
 SRCS		=	src/ft_read.s \
