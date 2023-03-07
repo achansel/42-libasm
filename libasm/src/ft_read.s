@@ -1,20 +1,18 @@
-global ft_read
-extern __errno_location
+global _ft_read
+extern ___error
 
-%define READ_SYSCALL_NO 0
+%define READ_SYSCALL_NO 0x2000003
 
-ft_read:
+_ft_read:
 	push rbp
 	mov rbp, rsp
 	and rsp, 0xFFFFFFFFFFFFFFF0
 
 	mov rax, READ_SYSCALL_NO
 	syscall
-	cmp rax, 0
-	jge end
-	neg rax
+	jnc end
 	mov rdx, rax
-	call __errno_location wrt ..plt
+	call ___error
 	mov [rax], rdx
 	mov rax, -1
 end:

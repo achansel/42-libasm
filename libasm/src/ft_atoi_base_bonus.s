@@ -1,6 +1,6 @@
-global ft_atoi_base
+global _ft_atoi_base
 
-extern ft_strlen
+extern _ft_strlen
 
 
 ;	rax, rcx, rdx, r8-r11 are volatile.
@@ -62,7 +62,7 @@ ft_basevalid:
 	push rdi
 
 	; if the base has a size < 2, we simply cannot express any number in it
-	call ft_strlen
+	call _ft_strlen
 	cmp rax, 2
 	jl .end_invalid
 
@@ -103,7 +103,7 @@ ft_basevalid:
 ; tmp stuff in rdx
 ; converted number is in r9
 ; base length is in r8
-ft_atoi_base:
+_ft_atoi_base:
 	push rdi
 	push rsi
 	xor r9, r9
@@ -117,7 +117,7 @@ ft_atoi_base:
 	je .end
 
 	; get base len
-	call ft_strlen
+	call _ft_strlen
 	cmp rax, 0
 	mov r8, rax
 	mov rdi, r10

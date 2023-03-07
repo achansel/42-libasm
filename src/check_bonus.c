@@ -58,9 +58,9 @@ void check_sort(t_list *l, int (*cmp)(void *, void *))
 	}
 }
 
-int list_intcmp(void *a, void *b)
+signed int list_intcmp(signed int a, signed int b)
 {
-	return (a - b);
+	return ((signed int)(a - b));
 }
 
 int	list_strcmp(void *a, void *b)
@@ -171,19 +171,19 @@ int main()
 
 		ft_list_sort(&l1, list_intcmp);
 		assert(ft_list_size(l1),==,3);
-		check_sort(l1, list_intcmp);
+		check_sort(l1, (void *) list_intcmp);
 
 		ft_list_sort(&l2, list_intcmp);
 		assert(ft_list_size(l2),==,3);
-		check_sort(l2, list_intcmp);
+		check_sort(l2, (void *) list_intcmp);
 
 		ft_list_sort(&l3, list_intcmp);
 		assert(ft_list_size(l3),==,4);
-		check_sort(l3, list_intcmp);
+		check_sort(l3, (void *) list_intcmp);
 
 		ft_list_sort(&l4, list_strcmp);
 		assert(ft_list_size(l4),==,4);
-		check_sort(l4, list_strcmp);
+		check_sort(l4, (void *) list_strcmp);
 
 	}
 	return (0);

@@ -1,17 +1,17 @@
-global ft_list_sort
+global _ft_list_sort
 
-extern ft_list_size
+extern _ft_list_size
 
 ; ARGS -> [RDI: t_list **head, RSI: int (*cmp)(void*,void*)]
 ; WORKING -> [R12: t_list **head, R13: t_list *traverser, R14: cmp func]
 ; RETURNS -> void
-ft_list_sort:
+_ft_list_sort:
 	mov r12, rdi
 	mov r14, rsi
 	
 	; get list len
 	mov rdi, [rdi]
-	call ft_list_size
+	call _ft_list_size
 
 	; use len as the number of iters
 	mov rcx, rax
@@ -25,16 +25,16 @@ ft_list_sort:
 	cmp qword [r13 + 0x08], 0
 	je .next_loop1
 
-	; compare traverser->data and traverser->next->data
 	mov rdi, [r13 + 0x00]
 	mov rsi, [r13 + 0x08]
 	mov rsi, [rsi + 0x00]
-
 	; call cmp func, rcx safe
 	push rcx
 	call r14
 	pop rcx
-	cmp rax, 0
+	; eax instead of rax since the return value is 32bit wide, otherwise it doesnt detect that the return value was signed, since the highest bit is never set
+	; took me 2 hours to fix...
+	cmp eax, 0
 	jle .next_loop2
 
 	; swap values

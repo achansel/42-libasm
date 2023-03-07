@@ -45,7 +45,7 @@ int main()
 		assert(errno,==,EBADF);
 
 		assert(ft_read(fds[0], NULL, -1),==,-1);
-		assert(errno,==,EFAULT);
+		assert(errno,==,EINVAL);
 	}
 
 	/* WRITE */
@@ -70,7 +70,7 @@ int main()
 		assert(errno,==,EBADF);
 
 		assert(ft_write(fds[1], NULL, -1),==,-1);
-		assert(errno,==,EFAULT);
+		assert(errno,==,EINVAL);
 	}
 
 	/* strlen */

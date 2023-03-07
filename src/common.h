@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #define assert(a, op, b) \
 { \

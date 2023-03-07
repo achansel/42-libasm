@@ -1,6 +1,6 @@
-global ft_list_push_front
+global _ft_list_push_front
 
-extern malloc
+extern _malloc
 
 ;	ARGS -> [RDI: void *data] 
 ;	RETURNS -> t_list *node
@@ -8,7 +8,7 @@ extern malloc
 ft_list_new:
 	push rdi
 	mov rdi, 16 ;sizeof(t_list) -> void* + void* -> 8 + 8 -> 16, on the target architecture
-	call malloc wrt ..plt
+	call _malloc
 	pop rdi
 	cmp rax, 0
 	je .exit
@@ -19,7 +19,7 @@ ft_list_new:
 
 ; ARGS -> [RDI: t_list **head, RSI: void *data]
 ; RETURNS -> None
-ft_list_push_front:
+_ft_list_push_front:
 	push rdi
 	mov rdi, rsi
 	call ft_list_new

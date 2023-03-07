@@ -1,10 +1,10 @@
-global ft_strdup
+global _ft_strdup
 
-extern ft_strlen
-extern malloc
-extern ft_strcpy
+extern _ft_strlen
+extern _malloc
+extern _ft_strcpy
 
-ft_strdup:
+_ft_strdup:
 	; align stack for libc call
 	push rbp
 	push rdi
@@ -13,12 +13,12 @@ ft_strdup:
 	and rsp, 0xFFFFFFFFFFFFFFF0
 
 	; allocate new dst string
-	call ft_strlen
+	call _ft_strlen
 	inc rax
-	push rdi
+	mov r12, rdi
 	mov rdi, rax
-	call malloc wrt ..plt
-	pop rdi
+	call _malloc
+	mov rdi, r12
 
 	; check if malloc failed
 	cmp rax, 0
@@ -27,7 +27,7 @@ ft_strdup:
 cpy:
 	mov rsi, rdi
 	mov rdi, rax
-	call ft_strcpy
+	call _ft_strcpy
 end:
 	; return stack to its original state
 	mov rsp, rbp

@@ -1,6 +1,6 @@
-global ft_list_remove_if
+global _ft_list_remove_if
 
-extern free
+extern _free
 
 ; ARGS -> [RDI: t_list **head, RSI: t_list *to_remove]
 ; WORKING -> [R8: to_remove_prev, R9: to_remove_search, R10: to_remove->next (tmp)]
@@ -31,14 +31,14 @@ ft_list_remove_pointers:
 	mov rdi, rsi
 .free_rdi:
 	; free and ret
-	call free wrt ..plt
+	call _free
 	pop rdi
 	ret
 
 ; ARGS -> [RDI: t_list **head, RSI: void *data_ref, RDX: int (*cmp)(void*,void*), RCX: void (*free_fct)(void*)]
 ; WORKING -> [R8: traverser->next, RBX: arg1, R12: t_list traverser, R13: arg2, R14: arg3, R15: arg4, R9: temporary store for list **head]
 ; RETURNS -> void
-ft_list_remove_if:
+_ft_list_remove_if:
 	; all the registers we need to save
 	; since System V calling convention has different sources for regs rdi and rsi, save them
 	push rdi
