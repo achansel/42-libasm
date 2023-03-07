@@ -6,13 +6,59 @@
 /*   By: achansel <achansel@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:32:01 by achansel          #+#    #+#             */
-/*   Updated: 2023/03/06 14:17:23 by achansel         ###   ########.fr       */
+/*   Updated: 2023/03/07 10:14:39 by achansel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libasm.h>
 #include <limits.h>
 #include "common.h"
+
+static t_list *list_new(void *data)
+{
+	t_list *new = malloc(sizeof(t_list));
+	if (!new)
+		exit(1);
+	new->data = data;
+	new->next = NULL;
+	return (new);
+}
+
+static void list_addback(t_list **head, t_list *new)
+{
+	if (!(*head))
+		*head = new;
+	else
+	{
+		t_list *t;
+		for (t = *head; t->next != NULL; t = t->next)
+			;
+		t->next = new;
+	}
+}
+
+static t_list *build_list(int size, ...)
+{
+	va_list l;
+	t_list	*new_list = NULL;
+
+	va_start(l, size);
+	for (int i = 0; i < size; i++)
+		list_addback(&new_list, list_new(va_arg(l, void *)));
+	va_end(l);
+	return (new_list);
+}
+
+int equal_cmp(void *data, void* ref)
+{
+	return (data != ref);
+}
+
+void stub_free(void *data)
+{
+	(void) data;
+	return ;
+}
 
 int main()
 {
@@ -56,7 +102,7 @@ int main()
 
 	}
 
-
+	/* ft_list_size base tests */
 	print_color("ft_list_size");
 	{
 		t_list *head = NULL;
@@ -68,6 +114,33 @@ int main()
 		assert(ft_list_size(head),==,2);
 		head->next = NULL;
 		assert(ft_list_size(head),==,1);
+	}
+
+	/* ft_remove_if base tests */
+	print_color("ft_list_remove_if");
+	{
+		t_list *l1 = build_list(3, (void *) 1, (void *) 2, (void *) 3);
+		t_list *l2 = build_list(3, (void *) 1, (void *) 2, (void *) 3);
+		t_list *l3 = build_list(5, (void *) 1, (void *) 2, (void *) 2, (void *) 2, (void *) 3);
+		t_list *l4 = build_list(3, (void *) 1, (void *) 1, (void *) 1);
+
+		ft_list_remove_if(&l1, (void *) 3, equal_cmp, stub_free);
+		assert(ft_list_size(l1),==,2);
+		assert(l1->data,==,(void *) 1);
+		assert(l1->next->data,==,(void *) 2);
+
+		ft_list_remove_if(&l2, (void *) 1, equal_cmp, stub_free);
+		assert(ft_list_size(l2),==,2);
+		assert(l2->data,==,(void *)2);
+		assert(l2->next->data,==,(void *)3);
+
+		ft_list_remove_if(&l3, (void *) 2, equal_cmp, stub_free);
+		assert(ft_list_size(l3),==,2);
+		assert(l3->data,==,(void *)1);
+		assert(l3->next->data,==,(void *)3);
+
+		ft_list_remove_if(&l4, (void *) 1, equal_cmp, stub_free);
+		assert(l4,==,NULL);
 	}
 
 
