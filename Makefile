@@ -6,7 +6,7 @@
 #    By: achansel <achansel@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/21 06:12:22 by achansel          #+#    #+#              #
-#    Updated: 2023/03/06 19:33:15 by achansel         ###   ########.fr        #
+#    Updated: 2023/03/07 10:38:29 by achansel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRCS		=	libasm/src/ft_read.s \
 SRCS_BONUS	=	libasm/src/ft_atoi_base_bonus.s \
 				libasm/src/ft_list_push_front_bonus.s \
 				libasm/src/ft_list_size_bonus.s \
-				libasm/src/ft_list_remove_if_bonus.s
+				libasm/src/ft_list_remove_if_bonus.s \
+				libasm/src/ft_list_sort_bonus.s
 
 OBJS 		:=	$(addsuffix .o, $(basename $(SRCS)))
 OBJS_BONUS	:=  $(addsuffix .o, $(basename $(SRCS_BONUS)))

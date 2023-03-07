@@ -6,7 +6,7 @@
 /*   By: achansel <achansel@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:32:01 by achansel          #+#    #+#             */
-/*   Updated: 2023/03/07 10:14:39 by achansel         ###   ########.fr       */
+/*   Updated: 2023/03/07 12:03:02 by achansel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,27 @@ static t_list *build_list(int size, ...)
 	return (new_list);
 }
 
-int equal_cmp(void *data, void* ref)
+void check_sort(t_list *l, int (*cmp)(void *, void *))
 {
-	return (data != ref);
+	while (l->next)
+	{
+		assert(cmp(l->data, l->next->data),<=,0);
+		l = l->next;			
+	}
+}
+
+int list_intcmp(void *a, void *b)
+{
+	return (a - b);
+}
+
+int	list_strcmp(void *a, void *b)
+{
+	char *s1 = a;
+	char *s2 = b;
+	while (*s1 && *s2 && *s1 == *s2 && s1++ && s2++)
+		;
+	return (s1 - s2);
 }
 
 void stub_free(void *data)
@@ -124,25 +142,49 @@ int main()
 		t_list *l3 = build_list(5, (void *) 1, (void *) 2, (void *) 2, (void *) 2, (void *) 3);
 		t_list *l4 = build_list(3, (void *) 1, (void *) 1, (void *) 1);
 
-		ft_list_remove_if(&l1, (void *) 3, equal_cmp, stub_free);
+		ft_list_remove_if(&l1, (void *) 3, list_intcmp, stub_free);
 		assert(ft_list_size(l1),==,2);
 		assert(l1->data,==,(void *) 1);
 		assert(l1->next->data,==,(void *) 2);
 
-		ft_list_remove_if(&l2, (void *) 1, equal_cmp, stub_free);
+		ft_list_remove_if(&l2, (void *) 1, list_intcmp, stub_free);
 		assert(ft_list_size(l2),==,2);
 		assert(l2->data,==,(void *)2);
 		assert(l2->next->data,==,(void *)3);
 
-		ft_list_remove_if(&l3, (void *) 2, equal_cmp, stub_free);
+		ft_list_remove_if(&l3, (void *) 2, list_intcmp, stub_free);
 		assert(ft_list_size(l3),==,2);
 		assert(l3->data,==,(void *)1);
 		assert(l3->next->data,==,(void *)3);
 
-		ft_list_remove_if(&l4, (void *) 1, equal_cmp, stub_free);
+		ft_list_remove_if(&l4, (void *) 1, list_intcmp, stub_free);
 		assert(l4,==,NULL);
 	}
 
+	/* ft_list_sort base tests */
+	print_color("ft_list_sort");
+	{
+		t_list *l1 = build_list(3, (void *) 3, (void *) 2, (void *) 1);
+		t_list *l2 = build_list(3, (void *) 0, (void *) 36, (void *) -5);
+		t_list *l3 = build_list(4, (void *) 1, (void *) 3, (void *) 2, (void *) 2);
+		t_list *l4 = build_list(4, (void *) "everyone", (void *) "enjoys", (void *) "lexicographical", (void *) "comparaison");
 
+		ft_list_sort(&l1, list_intcmp);
+		assert(ft_list_size(l1),==,3);
+		check_sort(l1, list_intcmp);
+
+		ft_list_sort(&l2, list_intcmp);
+		assert(ft_list_size(l2),==,3);
+		check_sort(l2, list_intcmp);
+
+		ft_list_sort(&l3, list_intcmp);
+		assert(ft_list_size(l3),==,4);
+		check_sort(l3, list_intcmp);
+
+		ft_list_sort(&l4, list_strcmp);
+		assert(ft_list_size(l4),==,4);
+		check_sort(l4, list_strcmp);
+
+	}
 	return (0);
 }

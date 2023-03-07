@@ -6,7 +6,7 @@
 /*   By: achansel <achansel@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 13:32:05 by achansel          #+#    #+#             */
-/*   Updated: 2023/03/06 19:50:14 by achansel         ###   ########.fr       */
+/*   Updated: 2023/03/07 10:25:41 by achansel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,4 @@ extern int			ft_atoi_base(char *str, char *base);
 extern int			ft_list_size(t_list *head);
 extern void 		ft_list_push_front(t_list **begin_list, void *data);
 extern void 		ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
+extern void			ft_list_sort(t_list **begin_list, int (*cmp)());
